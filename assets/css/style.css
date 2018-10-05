@@ -1,15 +1,15 @@
 body {
-	background-color: #36454f;
+	background-color: #144363;
 }
 th {
 	font-size: 20px;
 	text-align: center;
-	background-color: #96c8a2;
+	background-color: #4f55b6;
 }
 .panel-heading, h4 {
 	font-size: 30px;
 	text-align: center;
-	background-color: #e5d9e0 !important;
+	background-color: #d3d61e !important;
 }
 td {
 	text-align: center;
@@ -18,13 +18,13 @@ label {
 	font-size: 16px;
 }
 .jumbotron, #submitButton {
-	background-color: #d9ebdd;
+	background-color: #484ab6;
 }
 button {
 	font-size: 20px !important;
 	text-align: center !important;
 }
 button:hover {
-	background-color: #e5d9e0 !important;
+	background-color: #3a436e !important;
 	text-transform: uppercase;
 }
