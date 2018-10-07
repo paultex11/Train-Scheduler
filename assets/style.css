@@ -1,0 +1,16 @@
+body {
+    background-color: rgb(25, 87, 107);
+    padding: 20px;
+    font-weight: bold;
+}
+#strip {
+    display: flex;
+    flex-wrap: wrap;
+}
+thead {
+    background-color: rgb(204, 52, 32);
+}
+input {
+    border: rgb(190, 47, 47) 3px inset;
+    
+}

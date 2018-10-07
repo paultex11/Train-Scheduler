@@ -1,99 +1,131 @@
 <!DOCTYPE html>
+<html>
+
 <head>
-	<title>Train Table</title>
-	<meta charset="UTF-8">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Train Schedule</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-	<!-- Latest compiled and minified Bootstrap CSS & JS Libraries -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-	<script src="https://code.jquery.com/jquery-2.2.1.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
-	
-	<!-- Firebase Reference -->
-	<script src="https://train-scheduler-7bb1d.firebaseio.com"></script>
+  <!-- Bootstrap -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" 
+  integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-	<!-- Moment.js Reference -->
-	 <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
-	 
- 	<!-- Additonal CSS Created by me -->
-<!-- 	<link rel="stylesheet" href="">
- -->
+  <!-- Custom css -->
+  <link rel="stylesheet" type="text/css" media="screen" href="assets/style.css" />
+
+  <!-- JQuery -->
+  <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+    crossorigin="anonymous"></script>
+
+  <!-- Moment.js -->
+  <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
+
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/5.5.3/firebase.js"></script>
+
+
 </head>
+
+
 <body>
-	<div class="container">
-		<div class="jumbotron">
-			<h1 class="text-center">Arrivals/Departures</h1>
-			<h3 class="text-center">Train Scheduler</h3>
-		</div>
 
-		<div class="row">
-			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+  <!-- main wrapper to give consistant margins -->
+  <div class="container" id="content-box">
 
-			<!-- Current Trains -->
-				<div class="panel panel-primary">
-					<div class="panel-heading">
-						<h3 class="panel-title"><strong>Current Train</strong></h3>
-					</div>
-					<div class="panel-body">
-						<table class="table table-hover" id='trainTable'>
-							<thead>
-								<tr>
-									<th>Train Name</th>
-									<th>Line</th>
-									<th>Destination</th>
-									<th>Frequency</th>
-									<th>Next Arrival</th>
-									<th>Minutes Away</th>
-								</tr>
-							</thead>
-							<tbody>
-								
-							</tbody>
-						</table>
-					</div>
-				</div>
+    <!-- Page header -->
+    <div class="jumbotron text-center bg-info" id="title-box">
+      <strong><h1 class="display-4">Train Schedule</h1></strong>
+      <h3>Tube Arrival Times</h3>
+    </div>
 
-			<!-- Add New Trains -->
-				<div class="panel panel-primary">
-					<div class="panel-heading">
-						<h3 class="panel-title"><strong>Add a New Train</strong></h3>
-					</div>
+    <!-- Train times table -->
+    <div class="container" id="table-box">
 
-					<div class="panel-body">
-						<!-- Entry Form -->
-						<form>
-							<div class="form-group">
-								<label for="">Train Name</label>
-								<input type="text" class="form-control" id="trainNameInput">
-							</div>
+      <div class="row border border-dark bg-info rounded">
 
-							<div class="form-group">
-								<label for="">Line</label>
-								<input type="text" class="form-control" id="lineInput">
-							</div>
+          <h4 class="center-align m-2">Current Train Schedule</h4>
 
-							<div class="form-group">
-								<label for="">Destination</label>
-								<input type="text" class="form-control" id="destinationInput">
-							</div>
+          <table class="table table-hover center responsive-table" id="train-table">
 
-							<div class="form-group">
-								<label for="">First Train Time (HH:mm - military time)</label>
-								<input type="text" class="form-control" id="trainTimeInput">
-							</div>
+            <!-- The catagories that the table will follow -->
+            <thead>
+              <tr>
+                <th>Train Name</th>
+                <th>Destination</th>
+                <th>Frequency (minutes)</th>
+                <th>Next Arrival</th>
+                <th>Minutes Away</th>
+              </tr>
+            </thead>
 
-							<div class="form-group">
-								<label for="">Frequency (min)</label>
-								<input type="text" class="form-control" id="frequencyInput">
-							</div>
-							
-							<button type="submit" class="btn btn-primary" id="addTrainBtn">Submit</button>
-						</form>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- Javascript -->
-	<script src="assets/javascript/app.js"></script>
+
+            <tbody>
+
+              <!-- Info is generated in javascript -->
+
+            </tbody>
+
+          </table>
+
+      </div>
+      <!-- End of table -->
+
+      <br>
+
+
+      <!-- /////////////////////////////////// -->
+      <!-- Start of submit section -->
+
+        <div class="bg-info border border-dark rounded">
+
+          <h4 class="center-align m-2 p-1 rounded">Lookup new train</h4>
+
+          <form id="strip">
+
+            <div class="input-field col m-1">
+              <input type="text" name="kyleizawesome" class="validate" id="trainNameInput">
+              <label for="">Train Name</label>
+            </div>
+
+            <div class="input-field col m-1">
+              <input type="text" name="dest" class="validate" id="destinationInput">
+              <label for="">Train Destination</label>
+            </div>
+
+            <!-- This way with <input type="time"> always comes out am/pm on the input display though the javascript format 
+            puts the time on the table in military time -->
+            <!-- <div class="input-field col m-1">
+              <input type="time" class="validate" id= "firstTrainInput">
+              <label class="active" for="">First Train</label>
+            </div> -->
+
+            <!-- This way lets you put in a number in military format but with no colon I made this default because the 
+              specifications said it needed military time -->
+            <div class="input-field col m-1">
+              <input oninput="checkTime();" type="number" min="0000" max="2359" class="validate" id="firstTrainInput">
+              <label class='active' for="">First Train (Military Time)</label>
+            </div>
+
+            <div class="input-field col m-1">
+              <input type="number" name="freq" class="validate" id="frequencyInput">
+              <label for="">Frequency (min)</label>
+            </div>
+
+            <button type="submit" class="btn btn-primary border-dark m-2" id="add-Train">Submit</button>
+
+          </form>
+
+        </div>
+
+    </div>
+
+  </div>
+
 </body>
+
+<footer>
+  <script src="assets/schedule.js"></script>
+</footer>
+
 </html>
